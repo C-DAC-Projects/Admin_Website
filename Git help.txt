@@ -1,0 +1,6 @@
+1. git clone (only once)
+2. git fetch origin (Every time anyone does any changes in the main code)
+3. git branch <new-branch-name> (create your own branch e.g. : Akash_branch)
+4. git checkout <new-branch-name>(switch to your branch)
+5. Then do git add, git commit and git push 
+6. For git push use this command --> git push -u origin <new-branch-name>
