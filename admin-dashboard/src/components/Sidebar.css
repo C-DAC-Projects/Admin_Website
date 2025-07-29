@@ -1,0 +1,106 @@
+.sidebar {
+  width: 250px;
+  background-color: #e0f7fa; /* light sky blue */
+  padding: 20px;
+  color: #000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ✅ FIX: Removed border-radius & added max width */
+.logo {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  object-fit: contain;  /* Show full image */
+  margin-bottom: 10px;
+}
+
+.logo-section h2 {
+  font-size: 1.5rem;
+  color: #00796b;
+  font-weight: bold;
+  margin: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+  background-color: #b2ebf2;
+}
+
+.sidebar ul li a svg {
+  margin-right: 10px;
+}
+
+/* ✅ Mobile View Fixes */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    flex-direction: column;
+    padding: 10px;
+    min-height: auto;
+  }
+
+  .logo-section {
+    margin-bottom: 10px;
+  }
+
+  .logo {
+    width: 80px;
+    max-width: 80px;
+    height: auto;
+  }
+
+  .logo-section h2 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .sidebar ul li {
+    margin: 5px 10px;
+  }
+
+  .sidebar ul li a {
+    padding: 8px 12px;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  .sidebar ul li a svg {
+    margin-right: 6px;
+  }
+}
