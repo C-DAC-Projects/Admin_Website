@@ -281,3 +281,29 @@ html, body, #root {
 .sidebar-menu li.active .sidebar-link {
   font-weight: 600;
 }
+
+/* Add these to existing global.css */
+.page-container {
+  padding: 30px;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #2d3e50;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 20px 15px;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+}
+
+
