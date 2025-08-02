@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Pets from "./pages/Pets";
+import Products from "./pages/Products";
+import PendingProductOrders from "./pages/PendingProductOrders";
+import PendingPetOrders from "./pages/PendingPetOrders";
+import AddProducts from "./pages/AddProducts";
+import VendorApprovals from "./pages/VendorApprovals";
 import "./styles/global.css";
 
-// Create placeholder components for other pages
-const Pets = () => <div className="dashboard-container"><h1>Pets Management</h1></div>;
-const Products = () => <div className="dashboard-container"><h1>Products Management</h1></div>;
-const PendingProductOrders = () => <div className="dashboard-container"><h1>Pending Product Orders</h1></div>;
-const PendingPetOrders = () => <div className="dashboard-container"><h1>Pending Pet Orders</h1></div>;
-const AddProducts = () => <div className="dashboard-container"><h1>Add Products</h1></div>;
-const VendorApprovals = () => <div className="dashboard-container"><h1>Vendor Approvals</h1></div>;
+// Layout component that includes Sidebar
+const Layout = ({ children, isMobile, sidebarOpen, toggleSidebar }) => (
+  <div className="layout">
+    <Sidebar 
+      isOpen={sidebarOpen} 
+      toggleSidebar={toggleSidebar} 
+      isMobile={isMobile}
+    />
+    <div className="main-content">
+      {isMobile && (
+        <button className="mobile-menu-btn" onClick={toggleSidebar}>
+          ☰
+        </button>
+      )}
+      {children}
+    </div>
+  </div>
+);
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -37,36 +54,73 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/*"
+        
+        <Route 
+          path="/dashboard" 
           element={
-            <div className="layout">
-              <Sidebar 
-                isOpen={sidebarOpen} 
-                toggleSidebar={toggleSidebar} 
-                isMobile={isMobile}
-              />
-              <div className="main-content">
-                {isMobile && (
-                  <button className="mobile-menu-btn" onClick={toggleSidebar}>
-                    ☰
-                  </button>
-                )}
-                <Routes>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/admin/pets" element={<Pets />} />
-                  <Route path="/admin/products" element={<Products />} />
-                  <Route path="/admin/orders" element={<PendingProductOrders />} />
-                  <Route path="/admin/orders/pets" element={<PendingPetOrders />} />
-                  <Route path="/admin/products/add" element={<AddProducts />} />
-                  <Route path="/admin/vendors" element={<VendorApprovals />} />
-                  <Route path="*" element={<Dashboard />} />
-                </Routes>
-              </div>
-            </div>
-          }
+            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+              <Dashboard />
+            </Layout>
+          } 
         />
+        
+        <Route 
+          path="/admin/pets" 
+          element={
+            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+              <Pets />
+            </Layout>
+          } 
+        />
+        
+        <Route 
+          path="/admin/products" 
+          element={
+            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+              <Products />
+            </Layout>
+          } 
+        />
+        
+        <Route 
+          path="/admin/orders" 
+          element={
+            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+              <PendingProductOrders />
+            </Layout>
+          } 
+        />
+        
+        <Route 
+          path="/admin/orders/pets" 
+          element={
+            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+              <PendingPetOrders />
+            </Layout>
+          } 
+        />
+        
+        <Route 
+          path="/admin/products/add" 
+          element={
+            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+              <AddProducts />
+            </Layout>
+          } 
+        />
+        
+        <Route 
+          path="/admin/vendors" 
+          element={
+            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+              <VendorApprovals />
+            </Layout>
+          } 
+        />
+        
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );

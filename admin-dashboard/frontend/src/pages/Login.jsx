@@ -1,9 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Add this
 import "../styles/global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../assets/logo.png"; // Adjust if path differs
+import logo from "../assets/logo.png";
 
 const Login = () => {
+  const navigate = useNavigate(); // Add this
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // After form submission, redirect to dashboard
+    navigate("/dashboard"); // Add this
+  };
+
   return (
     <div className="login-container">
       <div className="login-box text-center">
@@ -22,7 +31,7 @@ const Login = () => {
         <h5 className="admin-text mb-4">Admin Login</h5>
 
         {/* Login Form */}
-        <form>
+        <form onSubmit={handleSubmit}> {/* Add onSubmit handler */}
           <div className="mb-3 text-start">
             <label className="form-label">Email</label>
             <input
