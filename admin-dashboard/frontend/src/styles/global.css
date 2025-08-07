@@ -307,3 +307,48 @@ html, body, #root {
 }
 
 
+/* Add to global.css */
+.Toastify__toast {
+  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Toastify__toast--success {
+  background: #48c78e;
+}
+
+.Toastify__toast--error {
+  background: #ff3860;
+}
+
+.full-page-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+}
+
+/* Add to components.css */
+.no-pets, .no-orders {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.status.pending {
+  background: #ffdd57;
+  color: #333;
+}
+
+.status.approved {
+  background: #48c78e;
+  color: white;
+}
+
+.status.rejected {
+  background: #ff3860;
+  color: white;
+}

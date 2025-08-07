@@ -1,34 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import { AuthProvider } from "./context/AuthContext";
+import Layout from "./components/Layout.JSX";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Pets from "./pages/Pets";
+import AddPet from "./pages/AddPet";
+import EditPet from "./pages/EditPet";
 import Products from "./pages/Products";
+import AddProduct from "./pages/AddProducts";
+import EditProduct from "./pages/EditProduct";
 import PendingProductOrders from "./pages/PendingProductOrders";
 import PendingPetOrders from "./pages/PendingPetOrders";
-import AddProducts from "./pages/AddProducts";
-import VendorApprovals from "./pages/VendorApprovals";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./styles/global.css";
-
-// Layout component that includes Sidebar
-const Layout = ({ children, isMobile, sidebarOpen, toggleSidebar }) => (
-  <div className="layout">
-    <Sidebar 
-      isOpen={sidebarOpen} 
-      toggleSidebar={toggleSidebar} 
-      isMobile={isMobile}
-    />
-    <div className="main-content">
-      {isMobile && (
-        <button className="mobile-menu-btn" onClick={toggleSidebar}>
-          ☰
-        </button>
-      )}
-      {children}
-    </div>
-  </div>
-);
+import "./styles/layout.css";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -40,10 +27,9 @@ function App() {
       setIsMobile(mobile);
       setSidebarOpen(!mobile);
     };
-    
+
     checkIfMobile();
     window.addEventListener("resize", checkIfMobile);
-    
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
@@ -52,77 +38,58 @@ function App() {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        
-        <Route 
-          path="/dashboard" 
-          element={
-            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
-              <Dashboard />
-            </Layout>
-          } 
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public route */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Layout wrapper for authenticated routes */}
+          <Route
+            element={
+              <Layout
+                isMobile={isMobile}
+                sidebarOpen={sidebarOpen}
+                toggleSidebar={toggleSidebar}
+              />
+            }
+          >
+            {/* Dashboard */}
+            <Route path="/dashboard" element={<Dashboard />} />
+
+            {/* Pet Management */}
+            <Route path="/admin/pets" element={<Pets />} />
+            <Route path="/admin/pets/add" element={<AddPet />} />
+            <Route path="/admin/pets/edit/:id" element={<EditPet />} />
+
+            {/* Product Management */}
+            <Route path="/admin/products" element={<Products />} />
+            <Route path="/admin/products/add" element={<AddProduct />} />
+            <Route path="/admin/products/edit/:id" element={<EditProduct />} />
+
+            {/* Order Management */}
+            <Route path="/admin/orders/products" element={<PendingProductOrders />} />
+            <Route path="/admin/orders/pets" element={<PendingPetOrders />} />
+          </Route>
+
+          {/* Redirects */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
         />
-        
-        <Route 
-          path="/admin/pets" 
-          element={
-            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
-              <Pets />
-            </Layout>
-          } 
-        />
-        
-        <Route 
-          path="/admin/products" 
-          element={
-            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
-              <Products />
-            </Layout>
-          } 
-        />
-        
-        <Route 
-          path="/admin/orders" 
-          element={
-            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
-              <PendingProductOrders />
-            </Layout>
-          } 
-        />
-        
-        <Route 
-          path="/admin/orders/pets" 
-          element={
-            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
-              <PendingPetOrders />
-            </Layout>
-          } 
-        />
-        
-        <Route 
-          path="/admin/products/add" 
-          element={
-            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
-              <AddProducts />
-            </Layout>
-          } 
-        />
-        
-        <Route 
-          path="/admin/vendors" 
-          element={
-            <Layout isMobile={isMobile} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
-              <VendorApprovals />
-            </Layout>
-          } 
-        />
-        
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 

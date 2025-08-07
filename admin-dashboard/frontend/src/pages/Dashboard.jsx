@@ -1,50 +1,65 @@
-import React from "react";
-import { FaPaw, FaBox, FaShoppingCart, FaUserCheck, FaUserClock, FaClipboardList } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { 
+  FaPaw, FaBox, FaShoppingCart, FaClipboardList 
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
+import api from "../utils/axiosSetup";
+import { toast } from 'react-toastify';
 import "../styles/dashboard.css";
 
 const Dashboard = () => {
+  const [stats, setStats] = useState({
+    totalPets: 0,
+    totalProducts: 0,
+    pendingProductOrders: 0,
+    pendingPetOrders: 0
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await api.get("/api/dashboard/stats");
+        setStats(response.data);
+      } catch (error) {
+        toast.error("Failed to load dashboard data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchStats();
+  }, []);
+
+  if (loading) return <div className="dashboard-container">Loading dashboard...</div>;
+
   const data = [
     {
       title: "Total Pets",
-      value: 120,
+      value: stats.totalPets,
       icon: <FaPaw />,
       link: "/admin/pets",
       color: "#00d1b2",
     },
     {
       title: "Total Products",
-      value: 75,
+      value: stats.totalProducts,
       icon: <FaBox />,
       link: "/admin/products",
       color: "#209cee",
     },
     {
       title: "Pending Product Orders",
-      value: 14,
+      value: stats.pendingProductOrders,
       icon: <FaShoppingCart />,
       link: "/admin/orders",
       color: "#ff3860",
     },
     {
-      title: "Approved Vendors",
-      value: 8,
-      icon: <FaUserCheck />,
-      link: "/admin/vendors",
-      color: "#ffdd57",
-    },
-    {
-      title: "Pending Vendor Approval",
-      value: 5,
-      icon: <FaUserClock />,
-      link: "/admin/vendors/pending",
-      color: "#6c63ff",
-    },
-    {
       title: "Pending Pet Orders",
-      value: 7,
+      value: stats.pendingPetOrders,
       icon: <FaClipboardList />,
-      link: "/admin/orders/pets/pending",
+      link: "/admin/orders/pets",
       color: "#48c78e",
     },
   ];

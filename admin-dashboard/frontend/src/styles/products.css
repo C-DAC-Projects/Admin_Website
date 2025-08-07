@@ -135,3 +135,24 @@
   background: #ff3860;
   color: white;
 }
+
+.upload-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  border: 2px dashed #6c63ff;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.upload-area:hover {
+  background-color: #f8f8ff;
+}
+
+.upload-text {
+  color: #666;
+  font-size: 14px;
+}
