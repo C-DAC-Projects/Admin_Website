@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin-dashboard", "admin-dashboard", "{7EF949ED-FE72-254A-30D5-7375E323FD70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetAdminBackend", "admin-dashboard\PetAdminBackend\PetAdminBackend.csproj", "{7941E4CC-0085-91AF-0B79-772657D0D762}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7941E4CC-0085-91AF-0B79-772657D0D762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7941E4CC-0085-91AF-0B79-772657D0D762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7941E4CC-0085-91AF-0B79-772657D0D762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7941E4CC-0085-91AF-0B79-772657D0D762}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7941E4CC-0085-91AF-0B79-772657D0D762} = {7EF949ED-FE72-254A-30D5-7375E323FD70}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26F27E9B-AB4F-490C-BD89-5E7981ADE343}
+	EndGlobalSection
+EndGlobal

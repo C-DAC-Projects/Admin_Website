@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/addpet.css";
+=======
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import '../styles/EditPet.css';
+>>>>>>> ea58717 (front end updated)
 
 const EditPet = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+<<<<<<< HEAD
 
   const [formData, setFormData] = useState({
     name: "",
@@ -44,11 +52,38 @@ const EditPet = () => {
         if (pet.images && Array.isArray(pet.images)) {
           setExistingImages(pet.images); // Assuming pet.images is array of image URLs or paths
         }
+=======
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    gender: '',
+    category: '',
+    description: '',
+    price: '',
+  });
+  const [imageFile, setImageFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/api/pets/${id}`)
+      .then((res) => {
+        const data = res.data;
+        setFormData({
+          name: data.name || '',
+          age: data.age || '',
+          gender: data.gender || '',
+          category: data.category || '',
+          description: data.description || '',
+          price: data.price || '',
+        });
+        setPreview(`http://localhost:8080/${data.image}`); // if image path is relative
+>>>>>>> ea58717 (front end updated)
       })
       .catch((err) => {
         alert("Failed to fetch pet data");
         console.error(err);
       });
+<<<<<<< HEAD
 
     // Mock data for breed & type (replace with actual API)
     const mockPetTypes = [
@@ -97,16 +132,33 @@ const EditPet = () => {
     } else if (primaryImageIndex > index) {
       setPrimaryImageIndex(primaryImageIndex - 1);
     }
+=======
+  }, [id]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+    setPreview(URL.createObjectURL(file));
+>>>>>>> ea58717 (front end updated)
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     setLoading(true);
 
+=======
+>>>>>>> ea58717 (front end updated)
     const payload = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       payload.append(key, value);
     });
+<<<<<<< HEAD
 
     images.forEach((image, idx) => {
       payload.append("images", image);
@@ -345,6 +397,70 @@ const EditPet = () => {
           </div>
         </form>
       </div>
+=======
+    if (imageFile) {
+      payload.append('image', imageFile);
+    }
+
+    axios.put(`http://localhost:8080/api/pets/${id}`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(() => {
+      alert("Pet updated successfully!");
+      navigate('/pets');
+    }).catch((err) => {
+      alert("Failed to update pet");
+      console.error(err);
+    });
+  };
+
+  return (
+    <div className="edit-container">
+      <h2>Edit Pet Information</h2>
+      <form className="edit-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Name:</label>
+          <input name="name" value={formData.name} onChange={handleInputChange} required />
+        </div>
+
+        <div className="form-group">
+          <label>Age:</label>
+          <input name="age" value={formData.age} onChange={handleInputChange} required />
+        </div>
+
+        <div className="form-group">
+          <label>Gender:</label>
+          <select name="gender" value={formData.gender} onChange={handleInputChange}>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>Category:</label>
+          <input name="category" value={formData.category} onChange={handleInputChange} required />
+        </div>
+
+        <div className="form-group">
+          <label>Description:</label>
+          <textarea name="description" value={formData.description} onChange={handleInputChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Price (₹):</label>
+          <input name="price" type="number" value={formData.price} onChange={handleInputChange} required />
+        </div>
+
+        <div className="form-group">
+          <label>Image:</label>
+          <input type="file" onChange={handleImageChange} accept="image/*" />
+          {preview && <img src={preview} alt="preview" className="preview-image" />}
+        </div>
+
+        <button type="submit" className="save-btn">Save Changes</button>
+      </form>
+>>>>>>> ea58717 (front end updated)
     </div>
   );
 };
