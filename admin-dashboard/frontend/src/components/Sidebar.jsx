@@ -1,7 +1,7 @@
 import React from "react";
 import { 
   FaTachometerAlt, FaPaw, FaBox, FaClock, 
-  FaPlusCircle, FaUsers, FaTimes 
+  FaPlusCircle, FaClipboardList 
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import "../styles/global.css";
@@ -22,19 +22,14 @@ const Sidebar = ({ isOpen, toggleSidebar, isMobile }) => {
       path: "/admin/pets" 
     },
     { 
+      title: "Add Pet", 
+      icon: <FaPlusCircle />, 
+      path: "/admin/pets/add" 
+    },
+    { 
       title: "Products", 
       icon: <FaBox />, 
       path: "/admin/products" 
-    },
-    { 
-      title: "Pending Product Orders", 
-      icon: <FaClock />, 
-      path: "/admin/orders" 
-    },
-    { 
-      title: "Pending Pet Orders", 
-      icon: <FaClock />, 
-      path: "/admin/orders/pets" 
     },
     { 
       title: "Add Products", 
@@ -42,9 +37,14 @@ const Sidebar = ({ isOpen, toggleSidebar, isMobile }) => {
       path: "/admin/products/add" 
     },
     { 
-      title: "Vendor Approvals", 
-      icon: <FaUsers />, 
-      path: "/admin/vendors" 
+      title: "Pending Product Orders", 
+      icon: <FaClock />, 
+      path: "/admin/orders/products" 
+    },
+    { 
+      title: "Pending Pet Orders", 
+      icon: <FaClipboardList />, 
+      path: "/admin/orders/pets" 
     }
   ];
 
@@ -55,7 +55,7 @@ const Sidebar = ({ isOpen, toggleSidebar, isMobile }) => {
           <h3 className="sidebar-title">Admin Panel</h3>
           {isMobile && (
             <button className="close-btn" onClick={toggleSidebar}>
-              <FaTimes />
+              ×
             </button>
           )}
         </div>

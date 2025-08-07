@@ -1,74 +1,140 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import "../styles/orders.css";
+import { useNavigate } from "react-router-dom";
+// import api from "../utils/axiosSetup"; // Uncomment for real API
 
 const PendingProductOrders = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const useDummyData = true;
+
+  const dummyOrders = [
+    {
+      id: 1,
+      orderNumber: "PROD-001",
+      createdAt: "2025-08-01T10:00:00Z",
+      status: "PENDING",
+      customerName: "John Doe",
+      customerEmail: "john@example.com",
+      customerPhone: "9876543210",
+      totalAmount: 1450,
+      items: [
+        { productName: "Dog Food", quantity: 2, price: 500 },
+        { productName: "Chew Toy", quantity: 1, price: 450 }
+      ]
+    },
+    {
+      id: 2,
+      orderNumber: "PROD-002",
+      createdAt: "2025-08-03T14:30:00Z",
+      status: "PROCESSING",
+      customerName: "Priya Sharma",
+      customerEmail: "priya@example.com",
+      customerPhone: "9865312422",
+      totalAmount: 899,
+      items: [
+        { productName: "Cat Litter", quantity: 1, price: 400 },
+        { productName: "Cat Treats", quantity: 2, price: 249.5 }
+      ]
+    },
+    {
+      id: 3,
+      orderNumber: "PROD-003",
+      createdAt: "2025-08-06T09:15:00Z",
+      status: "COMPLETED",
+      customerName: "Amit Patel",
+      customerEmail: "amit@example.com",
+      customerPhone: "9812345678",
+      totalAmount: 1000,
+      items: [
+        { productName: "Bird Cage", quantity: 1, price: 1000 }
+      ]
+    }
+  ];
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        setLoading(true);
+
+        if (useDummyData) {
+          setOrders(dummyOrders);
+        } else {
+          // const response = await api.get("/api/orders/products");
+          // setOrders(response.data.orders || []);
+          toast.warning("Dummy data displayed. Connect real API to fetch data.");
+        }
+      } catch (error) {
+        console.error("API error:", error);
+        toast.error("Failed to load product orders");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  if (loading) return <div className="page-container">Loading orders...</div>;
+
   return (
     <div className="page-container">
       <h1 className="page-title">Pending Product Orders</h1>
-      
-      <div className="orders-controls">
-        <div className="search-bar">
-          <input type="text" placeholder="Search orders..." />
-          <button>Search</button>
+
+      {orders.length === 0 ? (
+        <p>No product orders found.</p>
+      ) : (
+        <div className="orders-table-container">
+          <table className="orders-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Order No</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Customer</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Items</th>
+                <th>Total (₹)</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order, index) => (
+                <tr key={order.id}>
+                  <td>{index + 1}</td>
+                  <td>{order.orderNumber}</td>
+                  <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                  <td>{order.status}</td>
+                  <td>{order.customerName}</td>
+                  <td>{order.customerEmail}</td>
+                  <td>{order.customerPhone}</td>
+                  <td>
+                    {order.items?.map((item, i) => (
+                      <div key={i}>
+                        • {item.productName} x{item.quantity} (₹{item.price})
+                      </div>
+                    ))}
+                  </td>
+                  <td>₹{order.totalAmount?.toFixed(2)}</td>
+                  <td>
+                    <button
+                      onClick={() => navigate(`/order-details/${order.id}`)}
+                      className="view-btn"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <div className="filter-section">
-          <select>
-            <option>All Status</option>
-            <option>Pending</option>
-            <option>Processing</option>
-            <option>Shipped</option>
-          </select>
-        </div>
-      </div>
-      
-      <div className="orders-grid">
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className="order-card">
-            <div className="order-header">
-              <div className="order-id">Order #ORD{i+100}</div>
-              <div className="order-date">Aug {i+1}, 2025</div>
-              <div className={`order-status ${i % 3 === 0 ? 'pending' : i % 3 === 1 ? 'processing' : 'shipped'}`}>
-                {i % 3 === 0 ? 'Pending' : i % 3 === 1 ? 'Processing' : 'Shipped'}
-              </div>
-            </div>
-            
-            <div className="order-details">
-              <div className="customer-info">
-                <h4>Customer Information</h4>
-                <p>John Doe</p>
-                <p>john.doe@example.com</p>
-                <p>+1 (555) 123-4567</p>
-              </div>
-              
-              <div className="order-summary">
-                <h4>Order Summary</h4>
-                <div className="order-items">
-                  <div className="item">
-                    <div className="item-name">Product {i+1}</div>
-                    <div className="item-qty">Qty: {i+2}</div>
-                    <div className="item-price">$25.99</div>
-                  </div>
-                  <div className="item">
-                    <div className="item-name">Product {i+3}</div>
-                    <div className="item-qty">Qty: 1</div>
-                    <div className="item-price">$12.99</div>
-                  </div>
-                </div>
-                <div className="order-total">
-                  <span>Total:</span>
-                  <span>${(38.98).toFixed(2)}</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="order-actions">
-              <button>View Details</button>
-              <button>Process Order</button>
-              <button>Cancel Order</button>
-            </div>
-          </div>
-        ))}
-      </div>
+      )}
     </div>
   );
 };
