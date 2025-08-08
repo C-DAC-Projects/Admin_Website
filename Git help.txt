@@ -1,21 +1,25 @@
-# 1. Switch to your branch
-git checkout feature/my-awesome-change
+---------------------------------------------------------------------------------------------------------
 
-# 2. Make sure your local branch is up to date with origin (recommended: rebase)
-git fetch origin
-git pull --rebase origin main      # replay your commits on top of current main
-# or if you prefer merging:
-# git pull origin main
+# Safe push script
+git checkout your-branch-name &&
+git fetch origin &&
+git pull --rebase origin your-branch-name &&
+git add -A &&
+git commit -m "your commit message" &&
+git push origin your-branch-name
 
-# 3. Fix merge/rebase conflicts if any, then:
-# git add <resolved-files>
-# git rebase --continue  (if rebasing) or git commit (if merge)
+---------------------------------------------------------------------------------------------------------
 
-# 4. Stage & commit new changes
-git add -A
-git commit -m "fix: handle edge case in X"
 
-# 5. Push changes
-git push
-# If this branch hasn't an upstream set, use:
-# git push --set-upstream origin feature/my-awesome-change
+How it works:
+Switch to your branch → ensures you’re on the right branch.
+
+Fetch → gets latest info from remote.
+
+Pull with rebase → applies your commits on top of any new commits from remote (avoids merge conflicts).
+
+Add changes → stages all modifications.
+
+Commit → saves your changes locally.
+
+Push → sends your branch to remote.

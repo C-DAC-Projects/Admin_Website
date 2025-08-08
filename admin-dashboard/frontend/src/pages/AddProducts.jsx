@@ -163,7 +163,11 @@ const AddProduct = () => {
         </div>
 
         <div className="form-group">
+<<<<<<< HEAD
           <label>Product Images</label>
+=======
+          <label>Pet Images</label>
+>>>>>>> ea58717 (front end updated)
           <div className="image-upload-box">
             <input
               type="file"

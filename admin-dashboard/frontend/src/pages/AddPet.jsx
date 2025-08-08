@@ -12,17 +12,20 @@ const AddPet = () => {
     description: "",
     available: true,
     breedId: "",
+
     petTypeId: ""
   });
 
   const [images, setImages] = useState([]);
   const [primaryImageIndex, setPrimaryImageIndex] = useState(0);
   const [breeds, setBreeds] = useState([]);
+
   const [petTypes, setPetTypes] = useState([]);
   const [loading, setLoading] = useState(false);
 
   // Mock data - replace with API calls
   useEffect(() => {
+
     const mockPetTypes = [
       { id: 1, name: "Dog" },
       { id: 2, name: "Cat" },
@@ -65,7 +68,6 @@ const AddPet = () => {
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
-
     if (primaryImageIndex === index) {
       setPrimaryImageIndex(0);
     } else if (primaryImageIndex > index) {
@@ -98,30 +100,34 @@ const AddPet = () => {
             <div className="form-row">
               <div className="form-group">
                 <label>Pet Name</label>
+
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter pet name"
+
                   required
                 />
               </div>
               <div className="form-group">
                 <label>Age (Month)</label>
-                <input
-                  type="number"
+
+                <input 
+                  type="number" 
+
                   name="age"
                   value={formData.age}
                   onChange={handleChange}
                   min="0"
                   max="30"
-                  placeholder="Enter age"
+
+                  placeholder="Enter age" 
                   required
                 />
               </div>
             </div>
-
             <div className="form-row">
               <div className="form-group">
                 <label>Gender</label>
@@ -149,15 +155,16 @@ const AddPet = () => {
                 </div>
               </div>
               <div className="form-group">
+
                 <label>Price (Rs)</label>
-                <input
-                  type="number"
+                <input 
+                  type="number" 
                   name="price"
                   value={formData.price}
                   onChange={handleChange}
                   step="0.01"
                   min="0"
-                  placeholder="0.00"
+                  placeholder="0.00" 
                   required
                 />
               </div>
@@ -173,7 +180,6 @@ const AddPet = () => {
                 rows="4"
               ></textarea>
             </div>
-
             <div className="form-group checkbox-group">
               <label className="checkbox-option">
                 <input
@@ -189,6 +195,7 @@ const AddPet = () => {
 
           <div className="form-section">
             <h3>Classification</h3>
+
             <div className="form-row">
               <div className="form-group">
                 <label>Pet Type</label>
@@ -223,14 +230,15 @@ const AddPet = () => {
               </div>
             </div>
           </div>
-
           <div className="form-section">
             <h3>Pet Images</h3>
             <div className="image-upload-area">
               <label className="upload-placeholder">
+
                 <input
                   type="file"
                   multiple
+
                   onChange={handleImageChange}
                   accept="image/*"
                   style={{ display: "none" }}
@@ -245,20 +253,26 @@ const AddPet = () => {
               <div className="image-preview-grid">
                 {images.map((image, index) => (
                   <div key={index} className="image-preview">
+
                     <img
                       src={URL.createObjectURL(image)}
+
                       alt={`Preview ${index}`}
                       className="preview-image"
                     />
                     <div className="image-actions">
+
                       <button
+
                         type="button"
                         onClick={() => handleSetPrimary(index)}
                         className={`primary-btn ${primaryImageIndex === index ? 'active' : ''}`}
                       >
                         {primaryImageIndex === index ? 'Primary' : 'Set Primary'}
                       </button>
+
                       <button
+
                         type="button"
                         onClick={() => handleRemoveImage(index)}
                         className="remove-image"
@@ -275,13 +289,16 @@ const AddPet = () => {
           <div className="form-actions">
             <button
               type="button"
+
               className="cancel-btn"
               onClick={() => navigate("/admin/pets")}
             >
               Cancel
             </button>
+
             <button
               type="submit"
+
               className="submit-btn"
               disabled={loading}
             >
@@ -294,4 +311,6 @@ const AddPet = () => {
   );
 };
 
+
 export default AddPet;
+
