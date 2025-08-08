@@ -100,7 +100,7 @@ const Products = () => {
                 </div>
               </td>
               <td>{product.category}</td>
-              <td>${product.price.toFixed(2)}</td>
+              <td>{product.price.toFixed(2)}₹</td>
               <td>{product.stock}</td>
               <td>
                 <span className={`status-badge ${product.stock > 0 ? "in-stock" : "out-of-stock"}`}>
