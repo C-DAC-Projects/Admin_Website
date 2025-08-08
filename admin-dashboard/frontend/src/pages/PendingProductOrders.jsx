@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import "../styles/orders.css";
 import { useNavigate } from "react-router-dom";
-// import api from "../utils/axiosSetup"; // Uncomment for real API
+import "../styles/pendingProductOrders.css"; // New CSS file
 
 const PendingProductOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
   const navigate = useNavigate();
 
   const useDummyData = true;
@@ -78,14 +79,48 @@ const PendingProductOrders = () => {
     fetchOrders();
   }, []);
 
+  // Filtered orders
+  const filteredOrders = orders.filter((order) => {
+    const matchesSearch =
+      order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.customerEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.customerPhone.includes(searchTerm) ||
+      order.orderNumber.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesStatus =
+      statusFilter === "All" || order.status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
+
   if (loading) return <div className="page-container">Loading orders...</div>;
 
   return (
     <div className="page-container">
       <h1 className="page-title">Pending Product Orders</h1>
 
-      {orders.length === 0 ? (
-        <p>No product orders found.</p>
+      {/* Search & Filter Controls */}
+      <div className="orders-controls">
+        <input
+          type="text"
+          placeholder="Search by name, email, phone, or order no..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="All">All Status</option>
+          <option value="PENDING">Pending</option>
+          <option value="PROCESSING">Processing</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+      </div>
+
+      {filteredOrders.length === 0 ? (
+        <p>No matching orders found.</p>
       ) : (
         <div className="orders-table-container">
           <table className="orders-table">
@@ -100,16 +135,19 @@ const PendingProductOrders = () => {
                 <th>Phone</th>
                 <th>Items</th>
                 <th>Total (₹)</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
+              {filteredOrders.map((order, index) => (
                 <tr key={order.id}>
                   <td>{index + 1}</td>
                   <td>{order.orderNumber}</td>
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                  <td>{order.status}</td>
+                  <td>
+                    <span className={`status-badge ${order.status.toLowerCase()}`}>
+                      {order.status}
+                    </span>
+                  </td>
                   <td>{order.customerName}</td>
                   <td>{order.customerEmail}</td>
                   <td>{order.customerPhone}</td>
@@ -121,14 +159,6 @@ const PendingProductOrders = () => {
                     ))}
                   </td>
                   <td>₹{order.totalAmount?.toFixed(2)}</td>
-                  <td>
-                    <button
-                      onClick={() => navigate(`/order-details/${order.id}`)}
-                      className="view-btn"
-                    >
-                      View
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>

@@ -1,38 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/pets.css';
 
 function App() {
-  const navigate = useNavigate(); // ✅ Added
+  const navigate = useNavigate();
   const [pets, setPets] = useState([
-    {
-      id: 1,
-      name: 'Bruno',
-      age: 2,
-      category: 'Dog',
-      gender: 'Male',
-    },
-    {
-      id: 2,
-      name: 'Kitty',
-      age: 1,
-      category: 'Cat',
-      gender: 'Female',
-    },
+    { id: 1, name: 'Bruno', age: 2, category: 'Dog', gender: 'Male' },
+    { id: 2, name: 'Kitty', age: 1, category: 'Cat', gender: 'Female' },
   ]);
 
   const handleAddPet = () => {
-    const newPet = {
-      id: pets.length + 1,
-      name: 'New Pet',
-      age: 3,
-      category: 'Rabbit',
-      gender: 'Male',
-    };
-    setPets([...pets, newPet]);
+    navigate("/admin/pets/add"); // ✅ Goes to AddPet page
   };
 
   const handleEdit = (id) => {
-    // ✅ Navigate instead of alert
     navigate(`/admin/pets/edit/${id}`);
   };
 
@@ -42,10 +23,11 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Pet List</h2>
-      <button onClick={handleAddPet}>Add New Pet</button>
-      <table border="1" cellPadding="10" style={{ marginTop: '20px', width: '100%' }}>
+    <div className="pet-list-container">
+      <h2 className="pet-list-title">Pet List</h2>
+      <button className="add-pet-btn" onClick={handleAddPet}>Add New Pet</button>
+
+      <table className="pet-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -65,14 +47,14 @@ function App() {
               <td>{pet.category}</td>
               <td>{pet.gender}</td>
               <td>
-                <button onClick={() => handleEdit(pet.id)}>Edit</button>
-                <button onClick={() => handleDelete(pet.id)} style={{ marginLeft: '10px' }}>Delete</button>
+                <button className="action-btn edit-btn" onClick={() => handleEdit(pet.id)}>Edit</button>
+                <button className="action-btn delete-btn" onClick={() => handleDelete(pet.id)}>Delete</button>
               </td>
             </tr>
           ))}
           {pets.length === 0 && (
             <tr>
-              <td colSpan="6" align="center">No pets available</td>
+              <td className="empty-row" colSpan="6">No pets available</td>
             </tr>
           )}
         </tbody>
