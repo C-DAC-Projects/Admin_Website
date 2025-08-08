@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import "../styles/orders.css";
+import "../styles/pendingPetOrders.css";
 import { useNavigate } from "react-router-dom";
-// import api from "../utils/axiosSetup"; // Commented out if not needed
 
 const PendingPetOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+
   const navigate = useNavigate();
 
-  // Toggle this to true if you want to use dummy data
+  // Dummy data toggle
   const useDummyData = true;
 
   const dummyOrders = [
@@ -21,11 +23,7 @@ const PendingPetOrders = () => {
       customerName: "John Doe",
       customerEmail: "john@example.com",
       customerPhone: "9876543210",
-      pet: {
-        name: "Bruno",
-        breed: { name: "Labrador" },
-        price: 5500
-      }
+      pet: { name: "Bruno", breed: { name: "Labrador" }, price: 5500 }
     },
     {
       id: 2,
@@ -35,11 +33,7 @@ const PendingPetOrders = () => {
       customerName: "Priya Sharma",
       customerEmail: "priya@example.com",
       customerPhone: "9865312422",
-      pet: {
-        name: "Whiskers",
-        breed: { name: "Persian Cat" },
-        price: 3200
-      }
+      pet: { name: "Whiskers", breed: { name: "Persian Cat" }, price: 3200 }
     },
     {
       id: 3,
@@ -49,11 +43,7 @@ const PendingPetOrders = () => {
       customerName: "Amit Patel",
       customerEmail: "amit@example.com",
       customerPhone: "9812345678",
-      pet: {
-        name: "Tweety",
-        breed: { name: "Parrot" },
-        price: 900
-      }
+      pet: { name: "Tweety", breed: { name: "Parrot" }, price: 900 }
     }
   ];
 
@@ -80,14 +70,49 @@ const PendingPetOrders = () => {
     fetchOrders();
   }, []);
 
+  // Filtered data
+  const filteredOrders = orders.filter((order) => {
+    const matchesSearch =
+      order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.customerEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.customerPhone.includes(searchTerm) ||
+      order.pet?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesStatus =
+      statusFilter === "All" || order.status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
+
   if (loading) return <div className="page-container">Loading orders...</div>;
 
   return (
     <div className="page-container">
       <h1 className="page-title">Pending Pet Orders</h1>
 
-      {orders.length === 0 ? (
-        <p>No orders found</p>
+      {/* Controls */}
+      <div className="orders-controls">
+        <input
+          type="text"
+          placeholder="Search by name, email, phone, or pet..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="All">All Statuses</option>
+          <option value="PENDING">Pending</option>
+          <option value="PROCESSING">Processing</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+      </div>
+
+      {/* Table */}
+      {filteredOrders.length === 0 ? (
+        <p>No orders match your filters.</p>
       ) : (
         <div className="orders-table-container">
           <table className="orders-table">
@@ -103,27 +128,29 @@ const PendingPetOrders = () => {
                 <th>Pet</th>
                 <th>Breed</th>
                 <th>Price</th>
-                <th>Details</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
+              {filteredOrders.map((order, index) => (
                 <tr key={order.id}>
                   <td>{index + 1}</td>
                   <td>{order.orderNumber}</td>
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                  <td>{order.status}</td>
+                  <td>
+                    <span
+                      className={`status-badge ${
+                        order.status.toLowerCase()
+                      }`}
+                    >
+                      {order.status}
+                    </span>
+                  </td>
                   <td>{order.customerName}</td>
                   <td>{order.customerEmail}</td>
                   <td>{order.customerPhone}</td>
                   <td>{order.pet?.name || "-"}</td>
                   <td>{order.pet?.breed?.name || "-"}</td>
                   <td>₹{order.pet?.price?.toFixed(2) || "0.00"}</td>
-                  <td>
-                    <button onClick={() => navigate(`/pet-order-details/${order.id}`)}>
-                      View
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>
