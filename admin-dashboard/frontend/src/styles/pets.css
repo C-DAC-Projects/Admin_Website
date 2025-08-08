@@ -1,0 +1,90 @@
+/* Container */
+.pet-list-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.pet-list-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Add Pet Button */
+.add-pet-btn {
+  background-color: #4cafef;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.add-pet-btn:hover {
+  background-color: #3a95d6;
+}
+
+/* Table */
+.pet-table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.pet-table th,
+.pet-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.pet-table th {
+  background-color: #f4f6f8;
+  font-weight: 600;
+}
+
+.pet-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Action Buttons */
+.action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  margin-left: 8px;
+}
+
+.delete-btn:hover {
+  background-color: #b02a37;
+}
+
+/* Empty State */
+.empty-row {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+}

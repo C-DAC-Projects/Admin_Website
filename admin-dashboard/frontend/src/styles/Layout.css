@@ -1,0 +1,151 @@
+/* Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+  margin-left: 250px; /* Default sidebar width */
+}
+
+.main-content.collapsed {
+  margin-left: 60px; /* Collapsed sidebar width */
+}
+
+/* Topbar */
+.topbar {
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #4e73df;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background: #4e73df;
+  color: white;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  z-index: 1000;
+  width: 250px;
+}
+
+.sidebar.closed {
+  width: 60px;
+}
+
+.sidebar.mobile {
+  width: 250px;
+  transform: translateX(-100%);
+}
+
+.sidebar.mobile.open {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  padding: 1.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Menu items */
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.menu-item:hover, .menu-item.active {
+  background: rgba(0,0,0,0.1);
+  color: white;
+}
+
+.menu-icon {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  min-width: 24px;
+  text-align: center;
+}
+
+.menu-text {
+  white-space: nowrap;
+}
+
+.sidebar.closed .menu-text {
+  display: none;
+}
+
+/* Mobile menu button */
+.mobile-menu-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #4e73df;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  z-index: 99;
+  cursor: pointer;
+}
+
+/* Content area */
+.content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Footer */
+.footer {
+  padding: 1rem 2rem;
+  text-align: center;
+  background: #fff;
+  border-top: 1px solid #e3e6f0;
+  color: #6e707e;
+}
