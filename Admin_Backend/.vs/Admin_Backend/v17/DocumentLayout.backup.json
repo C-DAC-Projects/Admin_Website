@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|d:\\final project\\admin_website\\admin_backend\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|d:\\final project\\admin_website\\admin_backend\\controllers\\petcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|solutionrelative:controllers\\petcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|d:\\final project\\admin_website\\admin_backend\\dtos\\petcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|solutionrelative:dtos\\petcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112631_EnableCascadeDelete.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250808112631_EnableCascadeDelete.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112524_Baseline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250808112524_Baseline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112306_Baseline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20250808112306_Baseline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|d:\\final project\\admin_website\\admin_backend\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|d:\\final project\\admin_website\\admin_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1354BA98-F98A-46BC-AF8A-6FA9ACEA07E2}|Admin_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
+              "ToolTip": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "Controllers\\ProductController.cs",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAqwLMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-09T04:38:07.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PetCreateDTO.cs",
+              "DocumentMoniker": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\DTOs\\PetCreateDTO.cs",
+              "RelativeDocumentMoniker": "DTOs\\PetCreateDTO.cs",
+              "ToolTip": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\DTOs\\PetCreateDTO.cs",
+              "RelativeToolTip": "DTOs\\PetCreateDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-09T02:37:30.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20250808112631_EnableCascadeDelete.cs",
+              "DocumentMoniker": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112631_EnableCascadeDelete.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250808112631_EnableCascadeDelete.cs",
+              "ToolTip": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112631_EnableCascadeDelete.cs",
+              "RelativeToolTip": "Migrations\\20250808112631_EnableCascadeDelete.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T11:26:31.75Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PetController.cs",
+              "DocumentMoniker": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Controllers\\PetController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PetController.cs",
+              "ToolTip": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Controllers\\PetController.cs",
+              "RelativeToolTip": "Controllers\\PetController.cs",
+              "ViewState": "AgIAAKkAAAAAAAAAAAAqwNkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T09:52:13.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "20250808112524_Baseline.cs",
+              "DocumentMoniker": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112524_Baseline.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250808112524_Baseline.cs",
+              "ToolTip": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112524_Baseline.cs",
+              "RelativeToolTip": "Migrations\\20250808112524_Baseline.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAqwBQAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T11:25:24.396Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "20250808112306_Baseline.cs",
+              "DocumentMoniker": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112306_Baseline.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250808112306_Baseline.cs",
+              "ToolTip": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Migrations\\20250808112306_Baseline.cs",
+              "RelativeToolTip": "Migrations\\20250808112306_Baseline.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T11:23:06.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAQwDcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T10:59:40.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\FINAL PROJECT\\Admin_Website\\Admin_Backend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAwwGAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T09:13:11.358Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

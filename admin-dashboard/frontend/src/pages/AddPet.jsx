@@ -108,7 +108,7 @@ const AddPet = () => {
                 />
               </div>
               <div className="form-group">
-                <label>Age (Month)</label>
+                <label>Age (Months)</label>
                 <input
                   type="number"
                   name="age"
@@ -149,7 +149,7 @@ const AddPet = () => {
                 </div>
               </div>
               <div className="form-group">
-                <label>Price (Rs)</label>
+                <label>Price (₹)</label>
                 <input
                   type="number"
                   name="price"

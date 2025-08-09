@@ -15,7 +15,7 @@ const EditPet = () => {
     description: "",
     available: true,
     breedId: "",
-    petTypeId: ""
+    petTypeId: "",
   });
 
   const [images, setImages] = useState([]);
@@ -27,7 +27,8 @@ const EditPet = () => {
 
   useEffect(() => {
     // Fetch pet data
-    axios.get(`http://localhost:8080/api/pets/${id}`)
+    axios
+      .get(`http://localhost:8080/api/pets/${id}`)
       .then((res) => {
         const pet = res.data;
         setFormData({
@@ -38,7 +39,7 @@ const EditPet = () => {
           description: pet.description || "",
           available: pet.available || false,
           breedId: pet.breedId || "",
-          petTypeId: pet.petTypeId || ""
+          petTypeId: pet.petTypeId || "",
         });
 
         if (pet.images && Array.isArray(pet.images)) {
@@ -74,7 +75,7 @@ const EditPet = () => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -115,11 +116,12 @@ const EditPet = () => {
       }
     });
 
-    axios.put(`http://localhost:8080/api/pets/${id}`, payload, {
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
-    })
+    axios
+      .put(`http://localhost:8080/api/pets/${id}`, payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then(() => {
         alert("Pet updated successfully!");
         navigate("/admin/pets");
@@ -151,7 +153,7 @@ const EditPet = () => {
                 />
               </div>
               <div className="form-group">
-                <label>Age (years)</label>
+                <label>Age (Months)</label>
                 <input
                   type="number"
                   name="age"
@@ -191,7 +193,7 @@ const EditPet = () => {
                 </div>
               </div>
               <div className="form-group">
-                <label>Price ($)</label>
+                <label>Price (₹)</label>
                 <input
                   type="number"
                   name="price"
@@ -239,8 +241,10 @@ const EditPet = () => {
                   required
                 >
                   <option value="">Select Type</option>
-                  {petTypes.map(type => (
-                    <option key={type.id} value={type.id}>{type.name}</option>
+                  {petTypes.map((type) => (
+                    <option key={type.id} value={type.id}>
+                      {type.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -255,9 +259,11 @@ const EditPet = () => {
                 >
                   <option value="">Select Breed</option>
                   {breeds
-                    .filter(breed => breed.petTypeId == formData.petTypeId)
-                    .map(breed => (
-                      <option key={breed.id} value={breed.id}>{breed.name}</option>
+                    .filter((breed) => breed.petTypeId == formData.petTypeId)
+                    .map((breed) => (
+                      <option key={breed.id} value={breed.id}>
+                        {breed.name}
+                      </option>
                     ))}
                 </select>
               </div>
@@ -309,9 +315,13 @@ const EditPet = () => {
                       <button
                         type="button"
                         onClick={() => handleSetPrimary(index)}
-                        className={`primary-btn ${primaryImageIndex === index ? 'active' : ''}`}
+                        className={`primary-btn ${
+                          primaryImageIndex === index ? "active" : ""
+                        }`}
                       >
-                        {primaryImageIndex === index ? 'Primary' : 'Set Primary'}
+                        {primaryImageIndex === index
+                          ? "Primary"
+                          : "Set Primary"}
                       </button>
                       <button
                         type="button"
@@ -335,11 +345,7 @@ const EditPet = () => {
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={loading}
-            >
+            <button type="submit" className="submit-btn" disabled={loading}>
               {loading ? "Saving Changes..." : "Save Changes"}
             </button>
           </div>
