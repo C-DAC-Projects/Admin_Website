@@ -21,7 +21,18 @@ namespace Admin_Backend
 
             // Add services to the container.
 
-
+            // Add CORS policy for Vite React app
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:5173")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowCredentials();
+                    });
+            });
 
             builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -87,6 +98,8 @@ namespace Admin_Backend
 
             var app = builder.Build();
 
+            app.UseCors("AllowReactApp");
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -94,6 +107,9 @@ namespace Admin_Backend
             }
 
             app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseStaticFiles();
+
 
             app.UseAuthentication();
             app.UseAuthorization();

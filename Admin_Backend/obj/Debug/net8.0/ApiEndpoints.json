@@ -177,7 +177,7 @@
   {
     "ContainingType": "Admin_Backend.Controllers.PetController",
     "Method": "DeletePetImage",
-    "RelativePath": "api/Pet/{petId}/image/{imageId}",
+    "RelativePath": "api/Pet/{petId}/images/{imageId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

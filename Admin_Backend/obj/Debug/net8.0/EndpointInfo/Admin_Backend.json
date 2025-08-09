@@ -290,7 +290,7 @@
         }
       }
     },
-    "/api/Pet/{petId}/image/{imageId}": {
+    "/api/Pet/{petId}/images/{imageId}": {
       "delete": {
         "tags": [
           "Pet"

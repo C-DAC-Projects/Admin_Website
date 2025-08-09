@@ -1,31 +1,46 @@
+/* ====== Layout Controls ====== */
 .products-controls {
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
   flex-wrap: wrap;
   gap: 15px;
+  align-items: center;
 }
 
 .search-bar {
   display: flex;
   max-width: 400px;
+  width: 100%;
 }
 
 .search-bar input {
   flex: 1;
   padding: 10px 15px;
   border: 1px solid #ddd;
-  border-radius: 4px 0 0 4px;
-  font-size: 16px;
+  border-radius: 6px 0 0 6px;
+  font-size: 15px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 4px rgba(108, 99, 255, 0.3);
 }
 
 .search-bar button {
   padding: 10px 15px;
-  background: #2c3e50;
+  background: #6c63ff;
   color: white;
   border: none;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 6px 6px 0;
   cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-bar button:hover {
+  background: #5a54d6;
 }
 
 .filter-section {
@@ -36,44 +51,58 @@
 .filter-section select {
   padding: 10px 15px;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.filter-section select:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 4px rgba(108, 99, 255, 0.3);
 }
 
 .add-product-btn {
   padding: 10px 20px;
-  background: #00d1b2;
+  background: #6c63ff;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .add-product-btn:hover {
-  background: #009e86;
+  background: #5a54d6;
+  transform: translateY(-1px);
 }
 
+/* ====== Products Table ====== */
 .products-table {
   width: 100%;
   border-collapse: collapse;
   background: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
 .products-table th {
-  background-color: #2c3e50;
+  background-color: #6c63ff;
   color: white;
   text-align: left;
   padding: 15px;
+  font-weight: 500;
+  font-size: 15px;
 }
 
 .products-table td {
   padding: 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
 }
 
 .products-table tr:last-child td {
@@ -81,26 +110,28 @@
 }
 
 .products-table tr:hover {
-  background-color: #f9f9f9;
+  background-color: #f9f9ff;
 }
 
 .product-info {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
 }
 
 .product-image {
   width: 50px;
   height: 50px;
   background: #f5f6fa;
-  border-radius: 4px;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
 .status-badge {
-  padding: 5px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .in-stock {
@@ -113,9 +144,10 @@
   color: white;
 }
 
+/* ====== Table Action Buttons ====== */
 .table-actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .table-actions button {
@@ -123,7 +155,9 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .table-actions button:first-child {
@@ -136,6 +170,11 @@
   color: white;
 }
 
+.table-actions button:hover {
+  transform: translateY(-1px);
+}
+
+/* ====== Upload Section (Future Use) ====== */
 .upload-area {
   display: flex;
   justify-content: center;
@@ -155,4 +194,27 @@
 .upload-text {
   color: #666;
   font-size: 14px;
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 768px) {
+  .products-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .search-bar {
+    max-width: 100%;
+  }
+
+  .filter-section {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .products-table th,
+  .products-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
 }

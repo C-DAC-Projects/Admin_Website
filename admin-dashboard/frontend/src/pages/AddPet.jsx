@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { createPet } from "../services/petService";
 import "../styles/addpet.css";
 
 const AddPet = () => {
@@ -12,7 +13,7 @@ const AddPet = () => {
     description: "",
     available: true,
     breedId: "",
-    petTypeId: ""
+    petTypeId: "",
   });
 
   const [images, setImages] = useState([]);
@@ -21,21 +22,38 @@ const AddPet = () => {
   const [petTypes, setPetTypes] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Mock data - replace with API calls
+  // Temporary mock data — replace with backend API fetch
   useEffect(() => {
     const mockPetTypes = [
       { id: 1, name: "Dog" },
       { id: 2, name: "Cat" },
       { id: 3, name: "Bird" },
       { id: 4, name: "Fish" },
+      { id: 5, name: "Rabbit" },
+      { id: 6, name: "Hamster" },
+      { id: 7, name: "Turtle" },
+      { id: 8, name: "Guinea Pig" },
     ];
 
     const mockBreeds = [
-      { id: 1, name: "Golden Retriever", petTypeId: 1 },
-      { id: 2, name: "Labrador", petTypeId: 1 },
-      { id: 3, name: "Siamese", petTypeId: 2 },
+      { id: 1, name: "Labrador Retriever", petTypeId: 1 },
+      { id: 2, name: "German Shepherd", petTypeId: 1 },
+      { id: 3, name: "Pomeranian", petTypeId: 1 },
       { id: 4, name: "Persian", petTypeId: 2 },
-      { id: 5, name: "Parrot", petTypeId: 3 },
+      { id: 5, name: "Siamese", petTypeId: 2 },
+      { id: 6, name: "Parakeet", petTypeId: 3 },
+      { id: 7, name: "Cockatiel", petTypeId: 3 },
+      { id: 8, name: "Goldfish", petTypeId: 4 },
+      { id: 9, name: "Betta", petTypeId: 4 },
+      { id: 10, name: "Holland Lop", petTypeId: 5 },
+      { id: 11, name: "Lionhead", petTypeId: 5 },
+      { id: 12, name: "Syrian Hamster", petTypeId: 6 },
+      { id: 13, name: "Dwarf Hamster", petTypeId: 6 },
+      { id: 14, name: "Red-Eared Slider", petTypeId: 7 },
+      { id: 15, name: "Russian Tortoise", petTypeId: 7 },
+      { id: 16, name: "Abyssinian Guinea Pig", petTypeId: 8 },
+      { id: 17, name: "American Guinea Pig", petTypeId: 8 },
+      { id: 18, name: "Beagle", petTypeId: 1 },
     ];
 
     setPetTypes(mockPetTypes);
@@ -46,45 +64,77 @@ const AddPet = () => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
-  const handleImageChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const filesArray = Array.from(e.target.files);
-      setImages(filesArray);
-    }
-  };
+ const handleImageChange = (e) => {
+  if (e.target.files && e.target.files.length > 0) {
+    const filesArray = Array.from(e.target.files);
+    setImages((prevImages) => {
+      const updatedImages = [...prevImages, ...filesArray];
+      // If no primary image is set, default to the first uploaded
+      if (updatedImages.length > 0 && primaryImageIndex === null) {
+        setPrimaryImageIndex(0);
+      }
+      return updatedImages;
+    });
+  }
+};
 
-  const handleSetPrimary = (index) => {
-    setPrimaryImageIndex(index);
-  };
-
-  const handleRemoveImage = (index) => {
-    const newImages = [...images];
+const handleRemoveImage = (index) => {
+  setImages((prevImages) => {
+    const newImages = [...prevImages];
     newImages.splice(index, 1);
-    setImages(newImages);
 
-    if (primaryImageIndex === index) {
-      setPrimaryImageIndex(0);
+    if (newImages.length === 0) {
+      setPrimaryImageIndex(null);
+    } else if (primaryImageIndex === index) {
+      setPrimaryImageIndex(0); // reset primary to first image
     } else if (primaryImageIndex > index) {
       setPrimaryImageIndex(primaryImageIndex - 1);
     }
-  };
 
-  const handleSubmit = (e) => {
+    return newImages;
+  });
+};
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Price validation
+    if (formData.price <= 0) {
+      alert("Price must be greater than 0.");
+      return;
+    }
+
     setLoading(true);
 
-    // Simulate API request
-    setTimeout(() => {
-      console.log("Form Data:", formData);
-      console.log("Images:", images);
-      console.log("Primary Image Index:", primaryImageIndex);
-      setLoading(false);
+    try {
+      const data = new FormData();
+      data.append("Name", formData.name);
+      data.append("Age", formData.age);
+      data.append("Gender", formData.gender);
+      data.append("Price", formData.price);
+      data.append("Description", formData.description);
+      data.append("Available", formData.available);
+      data.append("PetTypeId", formData.petTypeId);
+      data.append("BreedId", formData.breedId);
+      data.append("PrimaryImageIndex", primaryImageIndex);
+
+      images.forEach((file) => {
+        data.append("Images", file);
+      });
+
+      await createPet(data);
       navigate("/admin/pets");
-    }, 1500);
+    } catch (error) {
+      console.error("Failed to add pet:", error);
+      alert("Failed to add pet.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -93,6 +143,7 @@ const AddPet = () => {
 
       <div className="product-form-container">
         <form className="product-form" onSubmit={handleSubmit}>
+          {/* Pet Information */}
           <div className="form-section">
             <h3>Pet Information</h3>
             <div className="form-row">
@@ -156,7 +207,7 @@ const AddPet = () => {
                   value={formData.price}
                   onChange={handleChange}
                   step="0.01"
-                  min="0"
+                  min="0.01"
                   placeholder="0.00"
                   required
                 />
@@ -187,6 +238,7 @@ const AddPet = () => {
             </div>
           </div>
 
+          {/* Classification */}
           <div className="form-section">
             <h3>Classification</h3>
             <div className="form-row">
@@ -199,8 +251,10 @@ const AddPet = () => {
                   required
                 >
                   <option value="">Select Type</option>
-                  {petTypes.map(type => (
-                    <option key={type.id} value={type.id}>{type.name}</option>
+                  {petTypes.map((type) => (
+                    <option key={type.id} value={type.id}>
+                      {type.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -215,15 +269,18 @@ const AddPet = () => {
                 >
                   <option value="">Select Breed</option>
                   {breeds
-                    .filter(breed => breed.petTypeId == formData.petTypeId)
-                    .map(breed => (
-                      <option key={breed.id} value={breed.id}>{breed.name}</option>
+                    .filter((breed) => breed.petTypeId == formData.petTypeId)
+                    .map((breed) => (
+                      <option key={breed.id} value={breed.id}>
+                        {breed.name}
+                      </option>
                     ))}
                 </select>
               </div>
             </div>
           </div>
 
+          {/* Pet Images */}
           <div className="form-section">
             <h3>Pet Images</h3>
             <div className="image-upload-area">
@@ -254,9 +311,13 @@ const AddPet = () => {
                       <button
                         type="button"
                         onClick={() => handleSetPrimary(index)}
-                        className={`primary-btn ${primaryImageIndex === index ? 'active' : ''}`}
+                        className={`primary-btn ${
+                          primaryImageIndex === index ? "active" : ""
+                        }`}
                       >
-                        {primaryImageIndex === index ? 'Primary' : 'Set Primary'}
+                        {primaryImageIndex === index
+                          ? "Primary"
+                          : "Set Primary"}
                       </button>
                       <button
                         type="button"
@@ -272,6 +333,7 @@ const AddPet = () => {
             )}
           </div>
 
+          {/* Actions */}
           <div className="form-actions">
             <button
               type="button"
@@ -280,11 +342,7 @@ const AddPet = () => {
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={loading}
-            >
+            <button type="submit" className="submit-btn" disabled={loading}>
               {loading ? "Adding Pet..." : "Add Pet"}
             </button>
           </div>

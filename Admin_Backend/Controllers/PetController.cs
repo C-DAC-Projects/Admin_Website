@@ -175,11 +175,13 @@ public class PetController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdatePet(int id, [FromForm] PetCreateDto petDto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
         var pet = await _context.pets.Include(p => p.pet_images).FirstOrDefaultAsync(p => p.id == id);
         if (pet == null)
             return NotFound();
 
-        // Update fields
         pet.name = petDto.Name;
         pet.age = petDto.Age;
         pet.gender = petDto.Gender;
@@ -192,15 +194,14 @@ public class PetController : ControllerBase
             var uploadsFolder = Path.Combine("wwwroot", "uploads", "pets", pet.id.ToString());
             Directory.CreateDirectory(uploadsFolder);
 
-            for (int i = 0; i < petDto.Images.Count; i++)
+            foreach (var file in petDto.Images.Select((value, index) => new { value, index }))
             {
-                var file = petDto.Images[i];
-                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.value.FileName)}";
                 var filePath = Path.Combine(uploadsFolder, fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await file.CopyToAsync(stream);
+                    await file.value.CopyToAsync(stream);
                 }
 
                 var relativePath = Path.Combine("uploads", "pets", pet.id.ToString(), fileName).Replace("\\", "/");
@@ -208,7 +209,7 @@ public class PetController : ControllerBase
                 var petImage = new pet_image
                 {
                     image_url = relativePath,
-                    is_primary = (i == 0),
+                    is_primary = (file.index == 0),
                     uploaded_at = DateTime.Now,
                     pet_id = pet.id
                 };
@@ -227,25 +228,43 @@ public class PetController : ControllerBase
 
 
 
+
     // DELETE: api/pet/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePet(int id)
     {
-        var pet = await _context.pets.FindAsync(id);
+        var pet = await _context.pets
+            .Include(p => p.pet_images) // Include related images
+            .FirstOrDefaultAsync(p => p.id == id);
+
         if (pet == null)
-        {
             return NotFound();
+
+        // Remove physical image files from wwwroot/uploads/pets
+        foreach (var image in pet.pet_images)
+        {
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", image.image_url.TrimStart('/'));
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
         }
 
+        // Remove images from database
+        _context.pet_images.RemoveRange(pet.pet_images);
+
+        // Remove pet
         _context.pets.Remove(pet);
-        await _context.SaveChangesAsync();  
+
+        await _context.SaveChangesAsync();
 
         return NoContent();
     }
 
 
 
-    //DELETE /api/pet/{petId}/image/{imageId}
+
+
     // DELETE: api/pet/{petId}/images/{imageId}
     [HttpDelete("{petId}/images/{imageId}")]
     public async Task<IActionResult> DeletePetImage(int petId, int imageId)
