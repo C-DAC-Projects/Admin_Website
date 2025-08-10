@@ -1,5 +1,0 @@
-D:\FINAL PROJECT\Admin_Website\Admin_Backend\wwwroot\uploads\pets\1\e5820314-2165-4ea3-beb4-7a54fdae7282.jpg
-D:\FINAL PROJECT\Admin_Website\Admin_Backend\wwwroot\uploads\products\3\7f3fa3cb-f1fb-44fb-b61e-e8b37faa025f.jpg
-D:\FINAL PROJECT\Admin_Website\Admin_Backend\wwwroot\uploads\products\3\e01ee079-5830-4276-a246-ec463f325bc8.jpg
-D:\FINAL PROJECT\Admin_Website\Admin_Backend\wwwroot\uploads\products\4\d594950a-5a3e-42f1-935e-2c36a44aa47d.jpg
-D:\FINAL PROJECT\Admin_Website\Admin_Backend\wwwroot\uploads\products\6\5a139dbf-6cd8-4cce-884d-6f9b0c664477.jpg
