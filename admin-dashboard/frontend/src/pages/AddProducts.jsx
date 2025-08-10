@@ -192,6 +192,7 @@ const AddProduct = () => {
           <div className="form-section">
             <h3>Basic Information</h3>
 
+
             <div className="form-group">
               <label>Product Name *</label>
               <input
@@ -203,6 +204,36 @@ const AddProduct = () => {
                 autoFocus
               />
             </div>
+
+          <div className="form-group">
+            <label>Pet Type</label>
+            <select
+              name="petTypeId"
+              value={product.petTypeId}
+              onChange={handleChange}
+            >
+              <option value="">Any Pet</option>
+              {petTypes.map((pt) => (
+                <option key={pt.id} value={pt.id}>{pt.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label>Price (₹) *</label>
+            <input
+              type="number"
+              name="price"
+              value={product.price}
+              onChange={handleChange}
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+
 
             <div className="form-row">
               <div className="form-group">

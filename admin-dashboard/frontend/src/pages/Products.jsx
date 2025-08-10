@@ -369,6 +369,48 @@ const Products = () => {
           )}
         </>
       )}
+
+      <table className="products-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredProducts.map((product) => (
+            <tr key={product._id}>
+              <td>
+                <div className="product-info">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="product-image"
+                  />
+                  <span>{product.name}</span>
+                </div>
+              </td>
+              <td>{product.category}</td>
+              <td>{product.price.toFixed(2)}₹</td>
+              <td>{product.stock}</td>
+              <td>
+                <span className={`status-badge ${product.stock > 0 ? "in-stock" : "out-of-stock"}`}>
+                  {product.stock > 0 ? "In Stock" : "Out of Stock"}
+                </span>
+              </td>
+              <td>
+                <button onClick={() => navigate(`/admin/products/edit/${product._id}`)}>Edit</button>
+                <button onClick={() => handleDelete(product._id)} style={{ marginLeft: "8px" }}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
     </div>
   );
 };
