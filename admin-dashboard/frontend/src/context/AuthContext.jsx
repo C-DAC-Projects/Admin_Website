@@ -12,9 +12,14 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     // Check if user exists in localStorage
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      setCurrentUser(user);
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setCurrentUser(JSON.parse(storedUser));
+      } catch (e) {
+        console.error("Error parsing user from localStorage:", e);
+        localStorage.removeItem('user'); // remove invalid data
+      }
     }
     setLoading(false);
   }, []);
@@ -31,6 +36,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    isAuthenticated: !!currentUser, // ✅ for easy checks in ProtectedRoute
     login,
     logout,
     loading

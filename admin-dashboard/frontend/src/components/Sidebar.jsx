@@ -37,12 +37,12 @@ const Sidebar = ({ isOpen, toggleSidebar, isMobile }) => {
       path: "/admin/products/add" 
     },
     { 
-      title: "Pending Product Orders", 
+      title: "Product Orders", 
       icon: <FaClock />, 
       path: "/admin/orders/products" 
     },
     { 
-      title: "Pending Pet Orders", 
+      title: "Pet Orders", 
       icon: <FaClipboardList />, 
       path: "/admin/orders/pets" 
     }

@@ -16,6 +16,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Admin_Backend.Controllers.AuthController",
+    "Method": "SendOtp",
+    "RelativePath": "api/Auth/send-otp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "Admin_Backend.Controllers.EmailRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Admin_Backend.Controllers.AuthController",
+    "Method": "VerifyOtp",
+    "RelativePath": "api/Auth/verify-otp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Admin_Backend.Controllers.OtpRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Admin_Backend.Controllers.PetController",
     "Method": "GetAllPets",
     "RelativePath": "api/Pet",
@@ -177,7 +209,7 @@
   {
     "ContainingType": "Admin_Backend.Controllers.PetController",
     "Method": "DeletePetImage",
-    "RelativePath": "api/Pet/{petId}/image/{imageId}",
+    "RelativePath": "api/Pet/{petId}/images/{imageId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

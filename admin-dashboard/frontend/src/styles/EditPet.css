@@ -1,116 +1,140 @@
-/* EditPet.css */
-
+/* Wrapper */
 .edit-pet-container {
-  max-width: 600px;
+  max-width: 700px;
   margin: 2rem auto;
   padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #fdfdfd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Heading */
 .edit-pet-container h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
 }
 
-.edit-pet-form {
+/* Form Layout - Align label + input */
+.edit-pet-form .form-row {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 1rem;
 }
 
-.edit-pet-form input,
-.edit-pet-form textarea,
-.edit-pet-form select {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.edit-pet-form label {
-  font-weight: bold;
-}
-
-.edit-pet-form button {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 12px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.3s;
-}
-
-.edit-pet-form button:hover {
-  background-color: #218838;
-}
-
-
-.edit-pet-form {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 25px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  background-color: #f9f9f9;
-}
-
-.edit-pet-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.edit-pet-form form {
-  display: flex;
-  flex-direction: column;
-}
-
-.edit-pet-form label {
-  margin-bottom: 12px;
+.edit-pet-form .form-row label {
+  width: 150px;
   font-weight: 500;
+  color: #444;
 }
 
-.edit-pet-form input,
-.edit-pet-form select,
-.edit-pet-form textarea {
-  padding: 8px;
-  margin-top: 5px;
+.edit-pet-form .form-row input,
+.edit-pet-form .form-row select,
+.edit-pet-form .form-row textarea {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  width: 100%;
-  box-sizing: border-box;
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+.edit-pet-form input:focus,
+.edit-pet-form select:focus,
+.edit-pet-form textarea:focus {
+  border-color: #4cafef;
+  box-shadow: 0px 0px 5px rgba(76, 175, 239, 0.3);
+  outline: none;
+}
+
+/* Textarea height */
+.edit-pet-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Image Preview */
 .preview-img {
   display: block;
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   object-fit: cover;
-  margin-top: 10px;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.image-preview {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.image-item {
+  position: relative;
+}
+
+.image-item img {
+  max-width: 100px;
   border-radius: 8px;
   border: 1px solid #ddd;
 }
 
+.image-item button {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: rgba(255, 0, 0, 0.85);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.image-item button:hover {
+  background: rgba(200, 0, 0, 0.9);
+}
+
+/* Buttons */
 .button-group {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
 }
 
-.button-group button {
-  padding: 10px 16px;
-  border: none;
-  background-color: #007bff;
+.btn-primary {
+  background-color: #4cafef;
   color: white;
-  border-radius: 6px;
+  border: none;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.button-group button:hover {
-  background-color: #0056b3;
+.btn-primary:hover {
+  background-color: #3a9ed9;
 }
 
+.btn-secondary {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: #ccc;
+}

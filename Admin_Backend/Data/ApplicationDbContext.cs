@@ -37,6 +37,7 @@ public partial class ApplicationDbContext : DbContext
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseMySql("server=localhost;database=cutiepetsdb;user=root;password=manager", Microsoft.EntityFrameworkCore.ServerVersion.Parse("9.2.0-mysql"));
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -53,6 +54,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasOne(d => d.pet_type).WithMany(p => p.breeds)
                 .HasForeignKey(d => d.pet_type_id)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FKfm2ur16u4v62csva1tphmtnbh");
         });
 
@@ -157,7 +159,13 @@ public partial class ApplicationDbContext : DbContext
         });
 
         OnModelCreatingPartial(modelBuilder);
+
+
     }
 
+
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+
 }
+

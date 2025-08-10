@@ -36,6 +36,68 @@
         }
       }
     },
+    "/api/Auth/send-otp": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Auth/verify-otp": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Pet": {
       "get": {
         "tags": [
@@ -81,12 +143,20 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "required": [
+                  "BreedId",
+                  "Description",
+                  "Gender",
+                  "Name"
+                ],
                 "type": "object",
                 "properties": {
                   "Name": {
                     "type": "string"
                   },
                   "Age": {
+                    "maximum": 240,
+                    "minimum": 0,
                     "type": "integer",
                     "format": "int32"
                   },
@@ -94,6 +164,8 @@
                     "type": "string"
                   },
                   "Price": {
+                    "maximum": 10000000,
+                    "minimum": 0,
                     "type": "number",
                     "format": "double"
                   },
@@ -204,12 +276,20 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "required": [
+                  "BreedId",
+                  "Description",
+                  "Gender",
+                  "Name"
+                ],
                 "type": "object",
                 "properties": {
                   "Name": {
                     "type": "string"
                   },
                   "Age": {
+                    "maximum": 240,
+                    "minimum": 0,
                     "type": "integer",
                     "format": "int32"
                   },
@@ -217,6 +297,8 @@
                     "type": "string"
                   },
                   "Price": {
+                    "maximum": 10000000,
+                    "minimum": 0,
                     "type": "number",
                     "format": "double"
                   },
@@ -290,7 +372,7 @@
         }
       }
     },
-    "/api/Pet/{petId}/image/{imageId}": {
+    "/api/Pet/{petId}/images/{imageId}": {
       "delete": {
         "tags": [
           "Pet"
@@ -766,6 +848,16 @@
         },
         "additionalProperties": false
       },
+      "EmailRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {
@@ -774,6 +866,20 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OtpRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "otp": {
             "type": "string",
             "nullable": true
           }

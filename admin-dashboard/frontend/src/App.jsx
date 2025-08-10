@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import Layout from "./components/Layout.JSX";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -12,10 +17,26 @@ import AddProduct from "./pages/AddProducts";
 import EditProduct from "./pages/EditProduct";
 import PendingProductOrders from "./pages/PendingProductOrders";
 import PendingPetOrders from "./pages/PendingPetOrders";
+import ForgotPassword from "./pages/ForgotPassword";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/global.css";
 import "./styles/layout.css";
+
+// Protected Route Component
+function ProtectedRoute({ children }) {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return null; // Or you can return a loading spinner
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -43,18 +64,19 @@ function App() {
         <Routes>
           {/* Public route */}
           <Route path="/login" element={<Login />} />
-
-          {/* Layout wrapper for authenticated routes */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* Protected layout for authenticated routes */}
           <Route
             element={
-              <Layout
-                isMobile={isMobile}
-                sidebarOpen={sidebarOpen}
-                toggleSidebar={toggleSidebar}
-              />
+              <ProtectedRoute>
+                <Layout
+                  isMobile={isMobile}
+                  sidebarOpen={sidebarOpen}
+                  toggleSidebar={toggleSidebar}
+                />
+              </ProtectedRoute>
             }
           >
-            {/* Dashboard */}
             <Route path="/dashboard" element={<Dashboard />} />
 
             {/* Pet Management */}
@@ -68,7 +90,10 @@ function App() {
             <Route path="/admin/products/edit/:id" element={<EditProduct />} />
 
             {/* Order Management */}
-            <Route path="/admin/orders/products" element={<PendingProductOrders />} />
+            <Route
+              path="/admin/orders/products"
+              element={<PendingProductOrders />}
+            />
             <Route path="/admin/orders/pets" element={<PendingPetOrders />} />
           </Route>
 

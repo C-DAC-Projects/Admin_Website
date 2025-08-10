@@ -3,6 +3,7 @@ using System;
 using Admin_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,20 +11,19 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Admin_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250809200351_OtpTable")]
+    partial class OtpTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseCollation("utf8mb4_0900_ai_ci")
-
                 .HasAnnotation("ProductVersion", "8.0.11")
-
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.HasCharSet(modelBuilder, "utf8mb4");
-
 
             modelBuilder.Entity("Admin_Backend.Models.OtpRequest", b =>
                 {
@@ -46,7 +46,6 @@ namespace Admin_Backend.Migrations
 
                     b.ToTable("OtpRequests");
                 });
-
 
             modelBuilder.Entity("Admin_Backend.Models.breed", b =>
                 {

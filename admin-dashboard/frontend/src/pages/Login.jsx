@@ -1,43 +1,77 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; // Add this
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../assets/logo.png";
+import { login as loginService } from "../services/loginService";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const navigate = useNavigate(); // Add this
+  const navigate = useNavigate();
+  const { login } = useAuth(); // ✅ from AuthContext
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // After form submission, redirect to dashboard
-    navigate("/dashboard"); // Add this
+    setError("");
+
+    try {
+      const res = await loginService(email, password);
+      console.log("Login API response:", res.data);
+
+      if (res.status === 200 && res.data?.token) {
+        // Save token
+        localStorage.setItem("token", res.data.token);
+
+        // ✅ Update AuthContext
+        login({
+          email: email,
+          token: res.data.token,
+          ...res.data.user // if API sends user details
+        });
+
+        // Redirect to dashboard
+        navigate("/dashboard", { replace: true });
+      } else {
+        setError("Unexpected server response.");
+      }
+    } catch (err) {
+      console.error("Login error:", err.response?.data || err.message);
+
+      if (err.response?.status === 401) {
+        setError("Invalid email or password.");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
   };
 
   return (
     <div className="login-container">
       <div className="login-box text-center">
-        {/* Logo */}
         <img
           src={logo}
           alt="Cutipets Logo"
           className="mb-2"
-          style={{ width: "80px", height: "auto" }}
+          style={{ width: "80px" }}
         />
-
-        {/* App Name */}
         <h2 className="app-title">Cutipets</h2>
-
-        {/* Admin Login Text */}
         <h5 className="admin-text mb-4">Admin Login</h5>
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit}> {/* Add onSubmit handler */}
+        {error && <div className="alert alert-danger">{error}</div>}
+
+        <form onSubmit={handleSubmit}>
           <div className="mb-3 text-start">
             <label className="form-label">Email</label>
             <input
               type="email"
               className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
+              required
             />
           </div>
           <div className="mb-3 text-start">
@@ -45,7 +79,10 @@ const Login = () => {
             <input
               type="password"
               className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
+              required
             />
           </div>
           <button type="submit" className="btn btn-primary w-100 mb-3">
@@ -53,11 +90,14 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Forgot Password */}
         <div className="text-end">
-          <a href="#" className="text-decoration-none small">
+          <span
+            onClick={() => navigate("/forgot-password")}
+            className="text-decoration-none small"
+            style={{ cursor: "pointer" }}
+          >
             Forgot Password?
-          </a>
+          </span>
         </div>
       </div>
     </div>
